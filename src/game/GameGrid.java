@@ -63,21 +63,27 @@ public class GameGrid {
 //		currentGrid[5][3] = 1;
 //		boardReset();
 	}
-	
-	public void boardReset(){
+
+    public void boardReset() {
+        boardReset(false);
+    }
+
+    public void boardReset(boolean clear){
 		paused = true;
 		step = 0;
 		currentGrid = new int[columns][rows];
 		nextGrid = new int[columns][rows];
 		neighborGrid = new int[columns][rows];
-		Random rand = new Random();
-		for(int i = 0; i < rows; i++){
-			for(int j = 0; j < columns; j++){
-				if(rand.nextBoolean()){
-					currentGrid[j][i] = 1;
-				}
-			}
-		}
+		if(!clear) {
+            Random rand = new Random();
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    if (rand.nextBoolean()) {
+                        currentGrid[j][i] = 1;
+                    }
+                }
+            }
+        }
 	}
 
 	public void mouseReleased(int button, int x, int y) {
@@ -148,6 +154,9 @@ public class GameGrid {
 		else if(gc.getInput().isKeyPressed(Input.KEY_L)){
 			load();
 		}
+		else if(gc.getInput().isKeyPressed(Input.KEY_C)){
+		    boardReset(true);
+        }
 	}
 	
 	public void save(){
